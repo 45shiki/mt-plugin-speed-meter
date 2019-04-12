@@ -23,7 +23,7 @@ sub _hdlr_speedmeter {
         $app->log( {
             message => $message,
             level => MT::Log::DEBUG(),
-            category => $plugin->id,
+            category => $plugin->key,
         } );
     } elsif ( $scope eq 'screen' ) {
         my $prefix = $args->{ prefix } || '';
