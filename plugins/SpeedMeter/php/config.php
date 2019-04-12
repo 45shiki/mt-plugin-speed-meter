@@ -28,6 +28,15 @@ class SpeedMeter extends MTPlugin {
                 return $content;
             }
             $name = $args[ 'name' ];
+            if (! $name ) {
+                $template_id = $ctx->stash('build_template_id');
+                require_once('class.mt_template.php');
+                $_template = new Template;
+                $where = "template_id = $template_id";
+                $result = $_template->Find( $where );
+                $template = $result[0];
+                $name = $template->name;
+            }
             $repeat = FALSE;
             $key = $ctx->stash( 'speedmeter_id' );
             $start = $ctx->stash( $key );
@@ -37,7 +46,14 @@ class SpeedMeter extends MTPlugin {
             $message = $app->translate( 'The template for [_1] have been build.', "'{$name}'" );
             $message .= $app->translate( 'Publish time: [_1].', $time );
             if ( $scope == 'log' ) {
-                $app->log( $message );
+                $app->log(
+                    $message,
+                    array(
+                        'blog_id' => $ctx->stash( 'blog_id' ),
+                        'level' => 16,
+                        'category' => 'speedmetor',
+                    )
+                );
             } elseif ( $scope == 'screen' ) {
                 $prefix = $args[ 'prefix' ] || '';
                 $suffix = $args[ 'suffix' ] || '';
@@ -47,5 +63,3 @@ class SpeedMeter extends MTPlugin {
         }
     }
 }
-
-?>
