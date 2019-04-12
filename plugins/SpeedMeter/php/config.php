@@ -47,13 +47,13 @@ class SpeedMeter extends MTPlugin {
             $message .= $app->translate( 'Publish time: [_1].', $time );
             if ( $scope == 'log' ) {
                 $app->log(
-					$message,
-					array(
-                    	'blog_id' => $ctx->stash( 'blog_id' ),
-                    	'level' => 16,
-                    	'category' => 'speedmetor',
-                	)
-				);
+                    $message,
+                    array(
+                        'blog_id' => $ctx->stash( 'blog_id' ),
+                        'level' => 16,
+                        'category' => 'speedmetor',
+                    )
+                );
             } elseif ( $scope == 'screen' ) {
                 $prefix = $args[ 'prefix' ] || '';
                 $suffix = $args[ 'suffix' ] || '';
